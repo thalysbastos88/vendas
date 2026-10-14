@@ -1,0 +1,119 @@
+table vendas
+	column id_pedido
+		dataType: string
+		summarizeBy: none
+		sourceColumn: id_pedido
+
+	column data
+		dataType: dateTime
+		formatString: Short Date
+		summarizeBy: none
+		sourceColumn: data
+
+	column vendedor
+		dataType: string
+		summarizeBy: none
+		sourceColumn: vendedor
+
+	column regiao
+		dataType: string
+		summarizeBy: none
+		sourceColumn: regiao
+
+	column cidade
+		dataType: string
+		summarizeBy: none
+		sourceColumn: cidade
+
+	column produto
+		dataType: string
+		summarizeBy: none
+		sourceColumn: produto
+
+	column quantidade
+		dataType: int64
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: quantidade
+
+	column valor_unitario
+		dataType: decimal
+		formatString: "R$ "#,##0.00
+		summarizeBy: none
+		sourceColumn: valor_unitario
+
+	column valor_total
+		dataType: decimal
+		formatString: "R$ "#,##0.00
+		summarizeBy: sum
+		sourceColumn: valor_total
+
+	measure 'Total Vendas' = SUM(vendas[valor_total])
+		formatString: "R$ "#,##0.00
+		displayFolder: Indicadores
+
+	measure 'Qtd Pedidos' = DISTINCTCOUNT(vendas[id_pedido])
+		formatString: #,##0
+		displayFolder: Indicadores
+
+	measure 'Ticket Medio' = DIVIDE([Total Vendas], [Qtd Pedidos])
+		formatString: "R$ "#,##0.00
+		displayFolder: Indicadores
+
+	measure 'Qtd Vendedores' = DISTINCTCOUNT(vendas[vendedor])
+		formatString: #,##0
+		displayFolder: Indicadores
+
+	measure 'Media por Vendedor' = DIVIDE([Total Vendas], [Qtd Vendedores])
+		formatString: "R$ "#,##0.00
+		displayFolder: Indicadores
+
+	measure 'Vendas Mes Anterior' = CALCULATE([Total Vendas], DATEADD(Calendario[Date], -1, MONTH))
+		formatString: "R$ "#,##0.00
+		displayFolder: Comparativos
+
+	measure 'Variacao Mensal %' = DIVIDE([Total Vendas] - [Vendas Mes Anterior], [Vendas Mes Anterior])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Comparativos
+
+	measure 'Vendas por Regiao' = CALCULATE([Total Vendas], REMOVEFILTERS(vendas[cidade]))
+		formatString: "R$ "#,##0.00
+		displayFolder: Regioes
+
+	measure 'Media Geral Regioes' = AVERAGEX(ALL(vendas[regiao]), CALCULATE([Total Vendas], REMOVEFILTERS(vendas[cidade])))
+		formatString: "R$ "#,##0.00
+		displayFolder: Regioes
+
+	measure 'Regiao Abaixo da Media' = IF([Vendas por Regiao] < [Media Geral Regioes], "Abaixo da média", "Na média ou acima")
+		displayFolder: Regioes
+
+	measure 'Vendas Ultimos 3 Meses' = CALCULATE([Total Vendas], DATESINPERIOD(Calendario[Date], MAX(Calendario[Date]), -3, MONTH))
+		formatString: "R$ "#,##0.00
+		displayFolder: Comparativos
+
+	measure 'Vendas 3 Meses Anteriores' = CALCULATE([Total Vendas], DATESINPERIOD(Calendario[Date], EDATE(MAX(Calendario[Date]), -3), -3, MONTH))
+		formatString: "R$ "#,##0.00
+		displayFolder: Comparativos
+
+	measure 'Variacao 3 Meses %' = DIVIDE([Vendas Ultimos 3 Meses] - [Vendas 3 Meses Anteriores], [Vendas 3 Meses Anteriores])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Comparativos
+
+	partition vendas = m
+		mode: import
+		source =
+				let
+					CaminhoArquivo = "C:\Users\User\Downloads\dashboard_vendas_powerbi\data\raw\vendas_simuladas.csv",
+					Arquivo = Csv.Document(File.Contents(CaminhoArquivo), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+					Cabecalhos = Table.PromoteHeaders(Arquivo, [PromoteAllScalars = true]),
+					ColunasEsperadas = {"id_pedido", "data", "vendedor", "regiao", "cidade", "produto", "quantidade", "valor_unitario", "valor_total"},
+					ColunasAusentes = List.Difference(ColunasEsperadas, Table.ColumnNames(Cabecalhos)),
+					ValidarCabecalhos = if not List.IsEmpty(ColunasAusentes) then error Error.Record("ETL.Cabecalhos", "O CSV não contém todas as colunas obrigatórias.", [ColunasAusentes = ColunasAusentes]) else Table.SelectColumns(Cabecalhos, ColunasEsperadas),
+					Tipos = Table.TransformColumnTypes(ValidarCabecalhos, {{"id_pedido", type text}, {"data", type date}, {"vendedor", type text}, {"regiao", type text}, {"cidade", type text}, {"produto", type text}, {"quantidade", Int64.Type}, {"valor_unitario", Currency.Type}, {"valor_total", Currency.Type}}, "en-US"),
+					TextosSemEspacos = Table.TransformColumns(Tipos, {{"id_pedido", Text.Trim, type text}, {"vendedor", Text.Trim, type text}, {"regiao", Text.Trim, type text}, {"cidade", Text.Trim, type text}, {"produto", Text.Trim, type text}}),
+					LinhasVazias = Table.SelectRows(TextosSemEspacos, each List.AnyTrue(List.Transform(Record.FieldValues(_), (valor) => valor = null or (valor is text and Text.Trim(valor) = "")))),
+					IDsDuplicados = Table.SelectRows(Table.Group(TextosSemEspacos, {"id_pedido"}, {{"Quantidade", each Table.RowCount(_), Int64.Type}}), each [Quantidade] > 1),
+					TotaisInvalidos = Table.SelectRows(TextosSemEspacos, each Number.Round([quantidade] * [valor_unitario], 2) <> Number.Round([valor_total], 2)),
+					ValidarDados = if Table.RowCount(LinhasVazias) > 0 then error Error.Record("ETL.CamposVazios", "O CSV contém campos vazios.", [Quantidade = Table.RowCount(LinhasVazias)]) else if Table.RowCount(IDsDuplicados) > 0 then error Error.Record("ETL.IDDuplicado", "O CSV contém IDs de pedido repetidos.", [Quantidade = Table.RowCount(IDsDuplicados)]) else if Table.RowCount(TotaisInvalidos) > 0 then error Error.Record("ETL.TotalInvalido", "Há linhas em que quantidade × valor unitário difere do valor total.", [Quantidade = Table.RowCount(TotaisInvalidos)]) else TextosSemEspacos
+				in
+					ValidarDados

@@ -1,0 +1,62 @@
+table Calendario
+	column Date
+		dataType: dateTime
+		formatString: Short Date
+		isKey
+		summarizeBy: none
+		sourceColumn: Date
+
+	column Ano
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Ano
+
+	column MesNum
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: MesNum
+
+	column Mes
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Mes
+		sortByColumn: AnoMes
+
+	column AnoMes
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: AnoMes
+
+	column SemanaAno
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: SemanaAno
+
+	column Semana
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Semana
+		sortByColumn: SemanaAno
+
+	partition Calendario = m
+		mode: import
+		source =
+				let
+					Fato = vendas,
+					DataInicial = Date.From(List.Min(Fato[data])),
+					DataFinal = Date.From(List.Max(Fato[data])),
+					Datas = List.Dates(DataInicial, Duration.Days(DataFinal - DataInicial) + 1, #duration(1, 0, 0, 0)),
+					Tabela = Table.FromList(Datas, Splitter.SplitByNothing(), {"Date"}),
+					Tipos = Table.TransformColumnTypes(Tabela, {{"Date", type date}}),
+					Ano = Table.AddColumn(Tipos, "Ano", each Date.Year([Date]), Int64.Type),
+					MesNum = Table.AddColumn(Ano, "MesNum", each Date.Month([Date]), Int64.Type),
+					Mes = Table.AddColumn(MesNum, "Mes", each Date.ToText([Date], "MMM/yy", "pt-BR"), type text),
+					AnoMes = Table.AddColumn(Mes, "AnoMes", each Date.Year([Date]) * 100 + Date.Month([Date]), Int64.Type),
+					SemanaAno = Table.AddColumn(AnoMes, "SemanaAno", each Date.Year([Date]) * 100 + Date.WeekOfYear([Date], Day.Monday), Int64.Type),
+					Semana = Table.AddColumn(SemanaAno, "Semana", each Date.ToText([Date], "yyyy", "pt-BR") & "-S" & Text.PadStart(Text.From(Date.WeekOfYear([Date], Day.Monday)), 2, "0"), type text)
+				in
+					Semana

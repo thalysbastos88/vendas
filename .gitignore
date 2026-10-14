@@ -1,0 +1,9 @@
+# Power BI local state and generated cache
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+**/.pbi/unappliedChanges.json
+*.tmp
+*.bak
+*.pbix
+
+# Keep the simulated source data in version control; it is part of this portfolio project.

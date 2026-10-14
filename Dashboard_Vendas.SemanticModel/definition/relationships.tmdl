@@ -1,0 +1,6 @@
+relationship RelacionamentoCalendarioVendas
+	fromColumn: vendas.data
+	toColumn: Calendario.Date
+	fromCardinality: many
+	toCardinality: one
+	crossFilteringBehavior: oneDirection

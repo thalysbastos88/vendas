@@ -1,0 +1,66 @@
+-- Tabela calendário; marque Calendario como tabela de datas usando Calendario[Date].
+Calendario =
+VAR DataInicial = MINX(vendas, vendas[data])
+VAR DataFinal = MAXX(vendas, vendas[data])
+RETURN
+ADDCOLUMNS(
+    CALENDAR(DataInicial, DataFinal),
+    "Ano", YEAR([Date]),
+    "MesNum", MONTH([Date]),
+    "Mes", FORMAT([Date], "mmm/yy", "pt-BR"),
+    "AnoMes", YEAR([Date]) * 100 + MONTH([Date]),
+    "SemanaAno", YEAR([Date]) * 100 + WEEKNUM([Date], 2),
+    "Semana", FORMAT([Date], "yyyy", "pt-BR") & "-S" & FORMAT(WEEKNUM([Date], 2), "00")
+)
+
+-- Ordenação: Calendario[Mes] por Calendario[AnoMes];
+-- Calendario[Semana] por Calendario[SemanaAno].
+-- Relacionamento: Calendario[Date] (1) -> vendas[data] (*).
+
+Total Vendas = SUM(vendas[valor_total])
+
+Qtd Pedidos = DISTINCTCOUNT(vendas[id_pedido])
+
+Ticket Medio = DIVIDE([Total Vendas], [Qtd Pedidos])
+
+Qtd Vendedores = DISTINCTCOUNT(vendas[vendedor])
+
+Media por Vendedor = DIVIDE([Total Vendas], [Qtd Vendedores])
+
+Vendas Mes Anterior =
+CALCULATE([Total Vendas], DATEADD(Calendario[Date], -1, MONTH))
+
+Variacao Mensal % =
+DIVIDE([Total Vendas] - [Vendas Mes Anterior], [Vendas Mes Anterior])
+
+Vendas por Regiao =
+CALCULATE([Total Vendas], REMOVEFILTERS(vendas[cidade]))
+
+Media Geral Regioes =
+AVERAGEX(
+    ALL(vendas[regiao]),
+    CALCULATE([Total Vendas], REMOVEFILTERS(vendas[cidade]))
+)
+
+Regiao Abaixo da Media =
+IF([Vendas por Regiao] < [Media Geral Regioes], "Abaixo da média", "Na média ou acima")
+
+Vendas Ultimos 3 Meses =
+CALCULATE(
+    [Total Vendas],
+    DATESINPERIOD(Calendario[Date], MAX(Calendario[Date]), -3, MONTH)
+)
+
+Vendas 3 Meses Anteriores =
+CALCULATE(
+    [Total Vendas],
+    DATESINPERIOD(
+        Calendario[Date],
+        EDATE(MAX(Calendario[Date]), -3),
+        -3,
+        MONTH
+    )
+)
+
+Variacao 3 Meses % =
+DIVIDE([Vendas Ultimos 3 Meses] - [Vendas 3 Meses Anteriores], [Vendas 3 Meses Anteriores])
