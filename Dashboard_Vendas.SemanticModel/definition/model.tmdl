@@ -6,5 +6,5 @@ model Model
 		legacyRedirects
 		returnErrorValuesAsNull
 
-	ref table vendas
-	ref table Calendario
+ref table vendas
+ref table Calendario
