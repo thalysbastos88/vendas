@@ -48,4 +48,4 @@ As três páginas têm segmentações de ano, região e vendedor. `Calendario[Da
 
 ## Git
 
-Este diretório é o limite do projeto. Inicialize o Git aqui (não em `Downloads`) e publique somente este conteúdo. Se usar um repositório remoto, configure o `origin` com a URL do seu repositório antes de enviar.
+Este projeto é versionado no repositório público [`thalysbastos88/vendas`](https://github.com/thalysbastos88/vendas). Para obter uma cópia, clone o repositório e abra `Dashboard_Vendas.pbip`; depois, ajuste o caminho do CSV se a pasta do projeto for diferente.
