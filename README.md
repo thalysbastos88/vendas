@@ -40,6 +40,7 @@ As três páginas têm segmentações de ano, região e vendedor. `Calendario[Da
 
 - `Dashboard_Vendas.pbip`: entrada do projeto Power BI.
 - `Dashboard_Vendas.SemanticModel/`: modelo semântico em TMDL e consultas Power Query.
+- `Dashboard_Vendas.SemanticModel/definition/cultures/pt-BR.tmdl`: metadados da cultura do modelo semântico.
 - `Dashboard_Vendas.Report/`: relatório em formato PBIR.
 - `data/raw/vendas_simuladas.csv`: arquivo-fonte simulado.
 - `01_power_query.pq`: consulta ETL para referência ou uso no Editor Avançado.

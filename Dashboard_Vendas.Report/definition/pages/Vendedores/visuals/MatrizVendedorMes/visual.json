@@ -82,7 +82,7 @@
                                                                 }
                                                             ]
                                               },
-                   "visualType":  "matrix",
+                   "visualType":  "pivotTable",
                    "drillFilterOtherVisuals":  true
                }
 }

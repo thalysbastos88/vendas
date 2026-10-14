@@ -178,7 +178,7 @@ Add-Page "Vendedores" "Vendedores" {
         Columns = @((New-Projection (New-ColumnField "Calendario" "Mes") "Calendario.Mes"))
         Values = @((New-Projection (New-MeasureField "vendas" "Total Vendas") "vendas.Total Vendas"))
     }
-    New-Visual $page "MatrizVendedorMes" "matrix" "Vendas por vendedor e mes" 510 100 755 570 $roles
+    New-Visual $page "MatrizVendedorMes" "pivotTable" "Vendas por vendedor e mes" 510 100 755 570 $roles
 }
 
 $pageOrder = @("VisaoGeral", "RegioesCidades", "Vendedores")

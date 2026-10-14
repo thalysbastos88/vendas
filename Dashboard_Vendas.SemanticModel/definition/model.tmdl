@@ -8,3 +8,5 @@ model Model
 
 ref table vendas
 ref table Calendario
+
+ref cultureInfo pt-BR
