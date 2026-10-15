@@ -204,7 +204,7 @@ $report = @{
 )
 [System.IO.File]::WriteAllText(
     (Join-Path $definitionRoot "version.json"),
-    '{"$schema":"https://developer.microsoft.com/json-schemas/fabric/item/report/definition/versionMetadata/1.0.0/schema.json","version":"2.0"}',
+    '{"$schema":"https://developer.microsoft.com/json-schemas/fabric/item/report/definition/versionMetadata/1.0.0/schema.json","version":"2.0.0"}',
     (New-Object System.Text.UTF8Encoding -ArgumentList $false)
 )
 

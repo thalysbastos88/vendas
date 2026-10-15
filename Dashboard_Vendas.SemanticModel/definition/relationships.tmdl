@@ -1,6 +1,8 @@
 relationship RelacionamentoCalendarioVendas
 	fromColumn: vendas.data
 	toColumn: Calendario.Date
-	fromCardinality: many
-	toCardinality: one
-	crossFilteringBehavior: oneDirection
+
+relationship 36ffc2a2-1a82-4cca-a27b-b7424cbe0d13
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Calendario.Date
+	toColumn: LocalDateTable_7ffbc55c-15ee-4e55-be0d-06baab7feb37.Date

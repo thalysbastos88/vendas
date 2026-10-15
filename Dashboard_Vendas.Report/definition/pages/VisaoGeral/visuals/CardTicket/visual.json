@@ -1,52 +1,52 @@
 {
-    "position":  {
-                     "y":  100,
-                     "height":  96,
-                     "width":  300,
-                     "z":  1000,
-                     "x":  645
-                 },
-    "name":  "CardTicket",
-    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
-    "visual":  {
-                   "query":  {
-                                 "queryState":  {
-                                                    "Values":  {
-                                                                   "projections":  [
-                                                                                       {
-                                                                                           "field":  {
-                                                                                                         "Measure":  {
-                                                                                                                         "Expression":  {
-                                                                                                                                            "SourceRef":  {
-                                                                                                                                                              "Entity":  "vendas"
-                                                                                                                                                          }
-                                                                                                                                        },
-                                                                                                                         "Property":  "Ticket Medio"
-                                                                                                                     }
-                                                                                                     },
-                                                                                           "active":  true,
-                                                                                           "queryRef":  "vendas.Ticket Medio"
-                                                                                       }
-                                                                                   ]
-                                                               }
-                                                }
-                             },
-                   "visualContainerObjects":  {
-                                                  "title":  [
-                                                                {
-                                                                    "properties":  {
-                                                                                       "text":  {
-                                                                                                    "expr":  {
-                                                                                                                 "Literal":  {
-                                                                                                                                 "Value":  "\u0027Ticket medio\u0027"
-                                                                                                                             }
-                                                                                                             }
-                                                                                                }
-                                                                                   }
-                                                                }
-                                                            ]
-                                              },
-                   "visualType":  "card",
-                   "drillFilterOtherVisuals":  true
-               }
+  "position": {
+    "y": 100,
+    "height": 96,
+    "width": 300,
+    "z": 1000,
+    "x": 645
+  },
+  "name": "CardTicket",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "visual": {
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vendas"
+                    }
+                  },
+                  "Property": "Ticket Medio"
+                }
+              },
+              "active": true,
+              "queryRef": "vendas.Ticket Medio"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Ticket medio'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualType": "card",
+    "drillFilterOtherVisuals": true
+  }
 }

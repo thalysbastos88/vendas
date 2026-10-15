@@ -1,88 +1,88 @@
 {
-    "position":  {
-                     "y":  100,
-                     "height":  570,
-                     "width":  755,
-                     "z":  1000,
-                     "x":  510
-                 },
-    "name":  "MatrizVendedorMes",
-    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
-    "visual":  {
-                   "query":  {
-                                 "queryState":  {
-                                                    "Rows":  {
-                                                                 "projections":  [
-                                                                                     {
-                                                                                         "field":  {
-                                                                                                       "Column":  {
-                                                                                                                      "Expression":  {
-                                                                                                                                         "SourceRef":  {
-                                                                                                                                                           "Entity":  "vendas"
-                                                                                                                                                       }
-                                                                                                                                     },
-                                                                                                                      "Property":  "vendedor"
-                                                                                                                  }
-                                                                                                   },
-                                                                                         "active":  true,
-                                                                                         "queryRef":  "vendas.vendedor"
-                                                                                     }
-                                                                                 ]
-                                                             },
-                                                    "Columns":  {
-                                                                    "projections":  [
-                                                                                        {
-                                                                                            "field":  {
-                                                                                                          "Column":  {
-                                                                                                                         "Expression":  {
-                                                                                                                                            "SourceRef":  {
-                                                                                                                                                              "Entity":  "Calendario"
-                                                                                                                                                          }
-                                                                                                                                        },
-                                                                                                                         "Property":  "Mes"
-                                                                                                                     }
-                                                                                                      },
-                                                                                            "active":  true,
-                                                                                            "queryRef":  "Calendario.Mes"
-                                                                                        }
-                                                                                    ]
-                                                                },
-                                                    "Values":  {
-                                                                   "projections":  [
-                                                                                       {
-                                                                                           "field":  {
-                                                                                                         "Measure":  {
-                                                                                                                         "Expression":  {
-                                                                                                                                            "SourceRef":  {
-                                                                                                                                                              "Entity":  "vendas"
-                                                                                                                                                          }
-                                                                                                                                        },
-                                                                                                                         "Property":  "Total Vendas"
-                                                                                                                     }
-                                                                                                     },
-                                                                                           "active":  true,
-                                                                                           "queryRef":  "vendas.Total Vendas"
-                                                                                       }
-                                                                                   ]
-                                                               }
-                                                }
-                             },
-                   "visualContainerObjects":  {
-                                                  "title":  [
-                                                                {
-                                                                    "properties":  {
-                                                                                       "text":  {
-                                                                                                    "expr":  {
-                                                                                                                 "Literal":  {
-                                                                                                                                 "Value":  "\u0027Vendas por vendedor e mes\u0027"
-                                                                                                                             }
-                                                                                                             }
-                                                                                                }
-                                                                                   }
-                                                                }
-                                                            ]
-                                              },
-                   "visualType":  "pivotTable",
-                   "drillFilterOtherVisuals":  true
-               }
+  "position": {
+    "y": 100,
+    "height": 570,
+    "width": 755,
+    "z": 1000,
+    "x": 510
+  },
+  "name": "MatrizVendedorMes",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "visual": {
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vendas"
+                    }
+                  },
+                  "Property": "vendedor"
+                }
+              },
+              "active": true,
+              "queryRef": "vendas.vendedor"
+            }
+          ]
+        },
+        "Columns": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Calendario"
+                    }
+                  },
+                  "Property": "Mes"
+                }
+              },
+              "active": true,
+              "queryRef": "Calendario.Mes"
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vendas"
+                    }
+                  },
+                  "Property": "Total Vendas"
+                }
+              },
+              "active": true,
+              "queryRef": "vendas.Total Vendas"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Vendas por vendedor e mes'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualType": "pivotTable",
+    "drillFilterOtherVisuals": true
+  }
 }

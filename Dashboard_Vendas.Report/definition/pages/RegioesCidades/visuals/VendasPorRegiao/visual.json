@@ -1,70 +1,70 @@
 {
-    "position":  {
-                     "y":  105,
-                     "height":  570,
-                     "width":  465,
-                     "z":  1000,
-                     "x":  15
-                 },
-    "name":  "VendasPorRegiao",
-    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
-    "visual":  {
-                   "query":  {
-                                 "queryState":  {
-                                                    "Category":  {
-                                                                     "projections":  [
-                                                                                         {
-                                                                                             "field":  {
-                                                                                                           "Column":  {
-                                                                                                                          "Expression":  {
-                                                                                                                                             "SourceRef":  {
-                                                                                                                                                               "Entity":  "vendas"
-                                                                                                                                                           }
-                                                                                                                                         },
-                                                                                                                          "Property":  "regiao"
-                                                                                                                      }
-                                                                                                       },
-                                                                                             "active":  true,
-                                                                                             "queryRef":  "vendas.regiao"
-                                                                                         }
-                                                                                     ]
-                                                                 },
-                                                    "Y":  {
-                                                              "projections":  [
-                                                                                  {
-                                                                                      "field":  {
-                                                                                                    "Measure":  {
-                                                                                                                    "Expression":  {
-                                                                                                                                       "SourceRef":  {
-                                                                                                                                                         "Entity":  "vendas"
-                                                                                                                                                     }
-                                                                                                                                   },
-                                                                                                                    "Property":  "Total Vendas"
-                                                                                                                }
-                                                                                                },
-                                                                                      "active":  true,
-                                                                                      "queryRef":  "vendas.Total Vendas"
-                                                                                  }
-                                                                              ]
-                                                          }
-                                                }
-                             },
-                   "visualContainerObjects":  {
-                                                  "title":  [
-                                                                {
-                                                                    "properties":  {
-                                                                                       "text":  {
-                                                                                                    "expr":  {
-                                                                                                                 "Literal":  {
-                                                                                                                                 "Value":  "\u0027Vendas por regiao\u0027"
-                                                                                                                             }
-                                                                                                             }
-                                                                                                }
-                                                                                   }
-                                                                }
-                                                            ]
-                                              },
-                   "visualType":  "clusteredBarChart",
-                   "drillFilterOtherVisuals":  true
-               }
+  "position": {
+    "y": 105,
+    "height": 570,
+    "width": 465,
+    "z": 1000,
+    "x": 15
+  },
+  "name": "VendasPorRegiao",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "visual": {
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vendas"
+                    }
+                  },
+                  "Property": "regiao"
+                }
+              },
+              "active": true,
+              "queryRef": "vendas.regiao"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vendas"
+                    }
+                  },
+                  "Property": "Total Vendas"
+                }
+              },
+              "active": true,
+              "queryRef": "vendas.Total Vendas"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Vendas por regiao'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualType": "clusteredBarChart",
+    "drillFilterOtherVisuals": true
+  }
 }

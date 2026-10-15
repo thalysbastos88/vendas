@@ -1,103 +1,129 @@
 table vendas
+	lineageTag: 57028210-9808-444e-b0ed-f6fbfd064dcc
+
+	measure 'Total Vendas' = SUM(vendas[valor_total])
+		formatString: "R$ "#,##0.00
+		displayFolder: Indicadores
+		lineageTag: 0a389f4d-754b-4662-8b2c-80ef84c186b7
+
+	measure 'Qtd Pedidos' = DISTINCTCOUNT(vendas[id_pedido])
+		formatString: #,##0
+		displayFolder: Indicadores
+		lineageTag: 0f0566a6-d20d-4bde-893f-aa0ebff5b35d
+
+	measure 'Ticket Medio' = DIVIDE([Total Vendas], [Qtd Pedidos])
+		formatString: "R$ "#,##0.00
+		displayFolder: Indicadores
+		lineageTag: 3c945111-975a-43b7-aec9-9cabb74cb646
+
+	measure 'Qtd Vendedores' = DISTINCTCOUNT(vendas[vendedor])
+		formatString: #,##0
+		displayFolder: Indicadores
+		lineageTag: 3489734d-a173-4a58-8538-c2f3629bf481
+
+	measure 'Media por Vendedor' = DIVIDE([Total Vendas], [Qtd Vendedores])
+		formatString: "R$ "#,##0.00
+		displayFolder: Indicadores
+		lineageTag: 3e1c293a-fbd0-4890-be97-29df17a3c2f2
+
+	measure 'Vendas Mes Anterior' = CALCULATE([Total Vendas], DATEADD(Calendario[Date], -1, MONTH))
+		formatString: "R$ "#,##0.00
+		displayFolder: Comparativos
+		lineageTag: 4503c58e-ae60-45b9-a703-0133db7e088a
+
+	measure 'Variacao Mensal %' = DIVIDE([Total Vendas] - [Vendas Mes Anterior], [Vendas Mes Anterior])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Comparativos
+		lineageTag: 80f6390a-4f10-4312-9e44-47486e66012d
+
+	measure 'Vendas por Regiao' = CALCULATE([Total Vendas], REMOVEFILTERS(vendas[cidade]))
+		formatString: "R$ "#,##0.00
+		displayFolder: Regioes
+		lineageTag: c6bb6ea8-f59d-4983-afef-eefcede115db
+
+	measure 'Media Geral Regioes' = AVERAGEX(ALL(vendas[regiao]), CALCULATE([Total Vendas], REMOVEFILTERS(vendas[cidade])))
+		formatString: "R$ "#,##0.00
+		displayFolder: Regioes
+		lineageTag: ae06ca48-a5b0-4ff0-aa31-0ca3d7bbec68
+
+	measure 'Regiao Abaixo da Media' = IF([Vendas por Regiao] < [Media Geral Regioes], "Abaixo da média", "Na média ou acima")
+		displayFolder: Regioes
+		lineageTag: 1a077d78-d95f-4bbd-a8c7-8f92f30d6542
+
+	measure 'Vendas Ultimos 3 Meses' = CALCULATE([Total Vendas], DATESINPERIOD(Calendario[Date], MAX(Calendario[Date]), -3, MONTH))
+		formatString: "R$ "#,##0.00
+		displayFolder: Comparativos
+		lineageTag: b387b609-c113-41b3-86cc-a97d6cd07f14
+
+	measure 'Vendas 3 Meses Anteriores' = CALCULATE([Total Vendas], DATESINPERIOD(Calendario[Date], EDATE(MAX(Calendario[Date]), -3), -3, MONTH))
+		formatString: "R$ "#,##0.00
+		displayFolder: Comparativos
+		lineageTag: b91c91f8-ed30-4b56-8e69-60f3a291beb6
+
+	measure 'Variacao 3 Meses %' = DIVIDE([Vendas Ultimos 3 Meses] - [Vendas 3 Meses Anteriores], [Vendas 3 Meses Anteriores])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Comparativos
+		lineageTag: 9f4f9c4c-55f9-45be-bb9c-9ffce9368bbf
+
 	column id_pedido
 		dataType: string
+		lineageTag: cd38c735-3891-49a0-89dc-861d1f96b326
 		summarizeBy: none
 		sourceColumn: id_pedido
 
 	column data
 		dataType: dateTime
 		formatString: Short Date
+		lineageTag: ff5659dd-3d98-41bf-a03e-54ec813d4dee
 		summarizeBy: none
 		sourceColumn: data
 
+		annotation UnderlyingDateTimeDataType = Date
+
 	column vendedor
 		dataType: string
+		lineageTag: 76d9219c-1c8f-474b-8409-9baece9ab8ed
 		summarizeBy: none
 		sourceColumn: vendedor
 
 	column regiao
 		dataType: string
+		lineageTag: d12816bd-ff42-4fb8-bcd5-bbf1a3069d87
 		summarizeBy: none
 		sourceColumn: regiao
 
 	column cidade
 		dataType: string
+		lineageTag: ad84e8ac-8019-4a68-8b29-f7bb6015b982
 		summarizeBy: none
 		sourceColumn: cidade
 
 	column produto
 		dataType: string
+		lineageTag: b9389937-c863-49ed-9277-032a64ed02ce
 		summarizeBy: none
 		sourceColumn: produto
 
 	column quantidade
 		dataType: int64
 		formatString: 0
+		lineageTag: 25ca7f4b-b771-42bb-a35a-8b9f4149820c
 		summarizeBy: sum
 		sourceColumn: quantidade
 
 	column valor_unitario
 		dataType: decimal
 		formatString: "R$ "#,##0.00
+		lineageTag: 9facf652-c13c-4de3-ae72-8d624a4d32da
 		summarizeBy: none
 		sourceColumn: valor_unitario
 
 	column valor_total
 		dataType: decimal
 		formatString: "R$ "#,##0.00
+		lineageTag: 94594a55-9faa-461f-851a-281b7f7bcf32
 		summarizeBy: sum
 		sourceColumn: valor_total
-
-	measure 'Total Vendas' = SUM(vendas[valor_total])
-		formatString: "R$ "#,##0.00
-		displayFolder: Indicadores
-
-	measure 'Qtd Pedidos' = DISTINCTCOUNT(vendas[id_pedido])
-		formatString: #,##0
-		displayFolder: Indicadores
-
-	measure 'Ticket Medio' = DIVIDE([Total Vendas], [Qtd Pedidos])
-		formatString: "R$ "#,##0.00
-		displayFolder: Indicadores
-
-	measure 'Qtd Vendedores' = DISTINCTCOUNT(vendas[vendedor])
-		formatString: #,##0
-		displayFolder: Indicadores
-
-	measure 'Media por Vendedor' = DIVIDE([Total Vendas], [Qtd Vendedores])
-		formatString: "R$ "#,##0.00
-		displayFolder: Indicadores
-
-	measure 'Vendas Mes Anterior' = CALCULATE([Total Vendas], DATEADD(Calendario[Date], -1, MONTH))
-		formatString: "R$ "#,##0.00
-		displayFolder: Comparativos
-
-	measure 'Variacao Mensal %' = DIVIDE([Total Vendas] - [Vendas Mes Anterior], [Vendas Mes Anterior])
-		formatString: 0.0%;-0.0%;0.0%
-		displayFolder: Comparativos
-
-	measure 'Vendas por Regiao' = CALCULATE([Total Vendas], REMOVEFILTERS(vendas[cidade]))
-		formatString: "R$ "#,##0.00
-		displayFolder: Regioes
-
-	measure 'Media Geral Regioes' = AVERAGEX(ALL(vendas[regiao]), CALCULATE([Total Vendas], REMOVEFILTERS(vendas[cidade])))
-		formatString: "R$ "#,##0.00
-		displayFolder: Regioes
-
-	measure 'Regiao Abaixo da Media' = IF([Vendas por Regiao] < [Media Geral Regioes], "Abaixo da média", "Na média ou acima")
-		displayFolder: Regioes
-
-	measure 'Vendas Ultimos 3 Meses' = CALCULATE([Total Vendas], DATESINPERIOD(Calendario[Date], MAX(Calendario[Date]), -3, MONTH))
-		formatString: "R$ "#,##0.00
-		displayFolder: Comparativos
-
-	measure 'Vendas 3 Meses Anteriores' = CALCULATE([Total Vendas], DATESINPERIOD(Calendario[Date], EDATE(MAX(Calendario[Date]), -3), -3, MONTH))
-		formatString: "R$ "#,##0.00
-		displayFolder: Comparativos
-
-	measure 'Variacao 3 Meses %' = DIVIDE([Vendas Ultimos 3 Meses] - [Vendas 3 Meses Anteriores], [Vendas 3 Meses Anteriores])
-		formatString: 0.0%;-0.0%;0.0%
-		displayFolder: Comparativos
 
 	partition vendas = m
 		mode: import
@@ -117,3 +143,5 @@ table vendas
 					ValidarDados = if Table.RowCount(LinhasVazias) > 0 then error Error.Record("ETL.CamposVazios", "O CSV contém campos vazios.", [Quantidade = Table.RowCount(LinhasVazias)]) else if Table.RowCount(IDsDuplicados) > 0 then error Error.Record("ETL.IDDuplicado", "O CSV contém IDs de pedido repetidos.", [Quantidade = Table.RowCount(IDsDuplicados)]) else if Table.RowCount(TotaisInvalidos) > 0 then error Error.Record("ETL.TotalInvalido", "Há linhas em que quantidade × valor unitário difere do valor total.", [Quantidade = Table.RowCount(TotaisInvalidos)]) else TextosSemEspacos
 				in
 					ValidarDados
+
+	annotation PBI_ResultType = Table

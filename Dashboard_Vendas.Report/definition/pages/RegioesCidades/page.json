@@ -1,8 +1,8 @@
 {
-    "name":  "RegioesCidades",
-    "displayOption":  "FitToPage",
-    "width":  1280,
-    "height":  720,
-    "displayName":  "Regioes e cidades",
-    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json"
+  "name": "RegioesCidades",
+  "displayOption": "FitToPage",
+  "width": 1280,
+  "height": 720,
+  "displayName": "Regioes e cidades",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json"
 }

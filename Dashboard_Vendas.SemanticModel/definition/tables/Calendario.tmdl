@@ -1,25 +1,42 @@
 table Calendario
+	lineageTag: 467c9548-afe0-4276-86e8-03c022976f08
+
 	column Date
 		dataType: dateTime
-		formatString: Short Date
 		isKey
+		formatString: Short Date
+		lineageTag: 1e38ccc6-73a3-4ff3-8512-d618fca3f3ac
 		summarizeBy: none
 		sourceColumn: Date
+
+		variation Variation
+			isDefault
+			relationship: 36ffc2a2-1a82-4cca-a27b-b7424cbe0d13
+			defaultHierarchy: LocalDateTable_7ffbc55c-15ee-4e55-be0d-06baab7feb37.'Hierarquia de datas'
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	column Ano
 		dataType: int64
 		formatString: 0
-		summarizeBy: none
+		lineageTag: 5a8c26b3-bb22-4d71-be05-8313e03896ad
+		summarizeBy: sum
 		sourceColumn: Ano
+
+		annotation SummarizationSetBy = Automatic
 
 	column MesNum
 		dataType: int64
 		formatString: 0
-		summarizeBy: none
+		lineageTag: 1377a2fb-7512-492c-9c25-f0abf002c804
+		summarizeBy: sum
 		sourceColumn: MesNum
+
+		annotation SummarizationSetBy = Automatic
 
 	column Mes
 		dataType: string
+		lineageTag: 0a603cca-fece-45cb-865f-6e4a7254e497
 		summarizeBy: none
 		sourceColumn: Mes
 		sortByColumn: AnoMes
@@ -27,17 +44,24 @@ table Calendario
 	column AnoMes
 		dataType: int64
 		formatString: 0
-		summarizeBy: none
+		lineageTag: a0b9b676-60a0-42dc-953b-630f28947f9e
+		summarizeBy: sum
 		sourceColumn: AnoMes
+
+		annotation SummarizationSetBy = Automatic
 
 	column SemanaAno
 		dataType: int64
 		formatString: 0
-		summarizeBy: none
+		lineageTag: 199e0534-6780-4f99-a3b0-2e42db61c6a6
+		summarizeBy: sum
 		sourceColumn: SemanaAno
+
+		annotation SummarizationSetBy = Automatic
 
 	column Semana
 		dataType: string
+		lineageTag: 93423e58-893e-4f75-861b-ffb53716885d
 		summarizeBy: none
 		sourceColumn: Semana
 		sortByColumn: SemanaAno

@@ -1,108 +1,108 @@
 {
-    "position":  {
-                     "y":  105,
-                     "height":  570,
-                     "width":  770,
-                     "z":  1000,
-                     "x":  495
-                 },
-    "name":  "DetalheCidades",
-    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
-    "visual":  {
-                   "query":  {
-                                 "queryState":  {
-                                                    "Values":  {
-                                                                   "projections":  [
-                                                                                       {
-                                                                                           "field":  {
-                                                                                                         "Column":  {
-                                                                                                                        "Expression":  {
-                                                                                                                                           "SourceRef":  {
-                                                                                                                                                             "Entity":  "vendas"
-                                                                                                                                                         }
-                                                                                                                                       },
-                                                                                                                        "Property":  "cidade"
-                                                                                                                    }
-                                                                                                     },
-                                                                                           "active":  true,
-                                                                                           "queryRef":  "vendas.cidade"
-                                                                                       },
-                                                                                       {
-                                                                                           "field":  {
-                                                                                                         "Column":  {
-                                                                                                                        "Expression":  {
-                                                                                                                                           "SourceRef":  {
-                                                                                                                                                             "Entity":  "vendas"
-                                                                                                                                                         }
-                                                                                                                                       },
-                                                                                                                        "Property":  "regiao"
-                                                                                                                    }
-                                                                                                     },
-                                                                                           "active":  true,
-                                                                                           "queryRef":  "vendas.regiao"
-                                                                                       },
-                                                                                       {
-                                                                                           "field":  {
-                                                                                                         "Measure":  {
-                                                                                                                         "Expression":  {
-                                                                                                                                            "SourceRef":  {
-                                                                                                                                                              "Entity":  "vendas"
-                                                                                                                                                          }
-                                                                                                                                        },
-                                                                                                                         "Property":  "Total Vendas"
-                                                                                                                     }
-                                                                                                     },
-                                                                                           "active":  true,
-                                                                                           "queryRef":  "vendas.Total Vendas"
-                                                                                       },
-                                                                                       {
-                                                                                           "field":  {
-                                                                                                         "Measure":  {
-                                                                                                                         "Expression":  {
-                                                                                                                                            "SourceRef":  {
-                                                                                                                                                              "Entity":  "vendas"
-                                                                                                                                                          }
-                                                                                                                                        },
-                                                                                                                         "Property":  "Regiao Abaixo da Media"
-                                                                                                                     }
-                                                                                                     },
-                                                                                           "active":  true,
-                                                                                           "queryRef":  "vendas.Regiao Abaixo da Media"
-                                                                                       },
-                                                                                       {
-                                                                                           "field":  {
-                                                                                                         "Measure":  {
-                                                                                                                         "Expression":  {
-                                                                                                                                            "SourceRef":  {
-                                                                                                                                                              "Entity":  "vendas"
-                                                                                                                                                          }
-                                                                                                                                        },
-                                                                                                                         "Property":  "Variacao 3 Meses %"
-                                                                                                                     }
-                                                                                                     },
-                                                                                           "active":  true,
-                                                                                           "queryRef":  "vendas.Variacao 3 Meses %"
-                                                                                       }
-                                                                                   ]
-                                                               }
-                                                }
-                             },
-                   "visualContainerObjects":  {
-                                                  "title":  [
-                                                                {
-                                                                    "properties":  {
-                                                                                       "text":  {
-                                                                                                    "expr":  {
-                                                                                                                 "Literal":  {
-                                                                                                                                 "Value":  "\u0027Desempenho por cidade\u0027"
-                                                                                                                             }
-                                                                                                             }
-                                                                                                }
-                                                                                   }
-                                                                }
-                                                            ]
-                                              },
-                   "visualType":  "tableEx",
-                   "drillFilterOtherVisuals":  true
-               }
+  "position": {
+    "y": 105,
+    "height": 570,
+    "width": 770,
+    "z": 1000,
+    "x": 495
+  },
+  "name": "DetalheCidades",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "visual": {
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vendas"
+                    }
+                  },
+                  "Property": "cidade"
+                }
+              },
+              "active": true,
+              "queryRef": "vendas.cidade"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vendas"
+                    }
+                  },
+                  "Property": "regiao"
+                }
+              },
+              "active": true,
+              "queryRef": "vendas.regiao"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vendas"
+                    }
+                  },
+                  "Property": "Total Vendas"
+                }
+              },
+              "active": true,
+              "queryRef": "vendas.Total Vendas"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vendas"
+                    }
+                  },
+                  "Property": "Regiao Abaixo da Media"
+                }
+              },
+              "active": true,
+              "queryRef": "vendas.Regiao Abaixo da Media"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vendas"
+                    }
+                  },
+                  "Property": "Variacao 3 Meses %"
+                }
+              },
+              "active": true,
+              "queryRef": "vendas.Variacao 3 Meses %"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Desempenho por cidade'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualType": "tableEx",
+    "drillFilterOtherVisuals": true
+  }
 }

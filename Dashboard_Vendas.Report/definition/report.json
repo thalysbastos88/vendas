@@ -1,6 +1,7 @@
 {
-    "themeCollection":  {
-
-                        },
-    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json"
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.3.0/schema.json",
+  "themeCollection": {},
+  "settings": {
+    "useEnhancedTooltips": false
+  }
 }

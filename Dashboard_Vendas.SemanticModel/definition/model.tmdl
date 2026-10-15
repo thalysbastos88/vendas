@@ -6,7 +6,15 @@ model Model
 		legacyRedirects
 		returnErrorValuesAsNull
 
+annotation PBI_QueryOrder = ["vendas","Calendario"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
 ref table vendas
 ref table Calendario
+ref table DateTableTemplate_3f25ca9f-5c12-45ca-9158-a5db51c444d2
+ref table LocalDateTable_7ffbc55c-15ee-4e55-be0d-06baab7feb37
 
 ref cultureInfo pt-BR

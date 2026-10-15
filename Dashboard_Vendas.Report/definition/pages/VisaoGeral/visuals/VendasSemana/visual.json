@@ -1,70 +1,102 @@
 {
-    "position":  {
-                     "y":  215,
-                     "height":  475,
-                     "width":  620,
-                     "z":  1000,
-                     "x":  645
-                 },
-    "name":  "VendasSemana",
-    "$schema":  "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
-    "visual":  {
-                   "query":  {
-                                 "queryState":  {
-                                                    "Category":  {
-                                                                     "projections":  [
-                                                                                         {
-                                                                                             "field":  {
-                                                                                                           "Column":  {
-                                                                                                                          "Expression":  {
-                                                                                                                                             "SourceRef":  {
-                                                                                                                                                               "Entity":  "Calendario"
-                                                                                                                                                           }
-                                                                                                                                         },
-                                                                                                                          "Property":  "Semana"
-                                                                                                                      }
-                                                                                                       },
-                                                                                             "active":  true,
-                                                                                             "queryRef":  "Calendario.Semana"
-                                                                                         }
-                                                                                     ]
-                                                                 },
-                                                    "Y":  {
-                                                              "projections":  [
-                                                                                  {
-                                                                                      "field":  {
-                                                                                                    "Measure":  {
-                                                                                                                    "Expression":  {
-                                                                                                                                       "SourceRef":  {
-                                                                                                                                                         "Entity":  "vendas"
-                                                                                                                                                     }
-                                                                                                                                   },
-                                                                                                                    "Property":  "Total Vendas"
-                                                                                                                }
-                                                                                                },
-                                                                                      "active":  true,
-                                                                                      "queryRef":  "vendas.Total Vendas"
-                                                                                  }
-                                                                              ]
-                                                          }
-                                                }
-                             },
-                   "visualContainerObjects":  {
-                                                  "title":  [
-                                                                {
-                                                                    "properties":  {
-                                                                                       "text":  {
-                                                                                                    "expr":  {
-                                                                                                                 "Literal":  {
-                                                                                                                                 "Value":  "\u0027Vendas por semana\u0027"
-                                                                                                                             }
-                                                                                                             }
-                                                                                                }
-                                                                                   }
-                                                                }
-                                                            ]
-                                              },
-                   "visualType":  "clusteredColumnChart",
-                   "drillFilterOtherVisuals":  true
-               }
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.13.0/schema.json",
+  "name": "VendasSemana",
+  "position": {
+    "x": 645,
+    "y": 215,
+    "z": 1000,
+    "height": 475,
+    "width": 620
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Calendario"
+                    }
+                  },
+                  "Property": "Semana"
+                }
+              },
+              "queryRef": "Calendario.Semana",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "vendas"
+                    }
+                  },
+                  "Property": "Total Vendas"
+                }
+              },
+              "queryRef": "vendas.Total Vendas",
+              "active": true
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Vendas por semana'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "52b36e61978a6a67539a",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Calendario"
+              }
+            },
+            "Property": "Semana"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "fea927ddba836035c681",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "vendas"
+              }
+            },
+            "Property": "Total Vendas"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
 }
